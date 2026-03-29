@@ -37,6 +37,8 @@ class TestSearch:
 
         with allure.step(f"Выполнить поиск по запросу: '{search_query}'"):
             search_page.search_on_page(search_query)
+            screenshot = browser.get_screenshot_as_png()
+            allure.attach(screenshot, name="page_Lukyanenko")
 
         with allure.step("Проверка отображения сообщения об отсутствии результатов"):
             assert  not search_page.is_no_results_displayed(), "Ничего не найдено"
