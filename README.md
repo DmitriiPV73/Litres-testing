@@ -1,31 +1,33 @@
 ### Структура проекта 
 
 ````
-avito-job-testing/
+Litres-testing/
 │
 ├── test-plan/
-│   ├── TestPlan_Avito_Job.pdf
-│   └── MindMap_Avito_Job.jpg
+│   ├── TestPlan_Litres.pdf
+│   └── MindMap_Litres.jpg
 │
 ├── checklist/
-│   └── ChecList_Avito_Job.pdf
+│   └── ChecList_Litres.pdf
 │
 ├── test-cases/
-│   └── TestCases_Avito_Job.pdf 
+│   └── TestCases_Litres.pdf 
 │
 ├── bug-reports/
-│   └── BugReports_Avito_Job.pdf
+│   
 │
 ├── final-report/
-│   └── FinalReport_Avito_Job.pdf
+│   └── FinalReport_Litres.pdf
 │
 ├── pages/
 │   ├── __init__.py
+│   ├── base_page.py
+│   ├── main_page.py
 │   └── serch_page.py
 │
 ├── tests/
 │   ├── __init__.py
-│   └── test_search_positive.py    
+│   └── test_litres_search_Lukyanenko.py    
 │    
 │
 └── README.md (Инструкция по запуску автотестов)
