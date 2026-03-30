@@ -95,3 +95,6 @@ pip install -r autotests/requirements.txt
 Запуск всех тестов : pytest tests/ -v
 
 Запуск с генерацией HTML-отчета : pytest tests/ -v --html=reports/report.html --self-contained-html
+
+### Результаты тестов
+![2026-03-30_21-05-03.png](skrin%2F2026-03-30_21-05-03.png)
