@@ -1,4 +1,5 @@
 import time
+from selenium.common.exceptions import ElementClickInterceptedException
 
 import allure
 import logging
@@ -8,7 +9,6 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from pages.base_page import BasePage
-from typing import List, Dict
 
 logger = logging.getLogger(__name__)
 
@@ -34,6 +34,8 @@ class SearchResultsPage(BasePage):
     LOAD_MORE_BUTTON = (By.XPATH, '//*[@id="main"]/div[2]')
     # Элемент карточки книги "Автор" для проверки
     ELEMENT_BOOK_AUTHOR = (By.XPATH, '//a[contains(text(), "Лукьяненко")]')
+    # Элемент вижка "Высокя оцена"
+    ELEMENT_AUDIO_BOOK = (By.CSS_SELECTOR, '#art_types-audiobook')
 
     def search_on_page(self, search_query: str):
         """Поиск на текущей странице"""
@@ -44,6 +46,32 @@ class SearchResultsPage(BasePage):
             search_input.clear()
             search_input.send_keys(search_query)
             search_input.send_keys(Keys.ENTER)
+
+            wait = WebDriverWait(self.driver, 10)
+            # Ожидание исчезновения индикатора загрузки
+            wait.until(
+                EC.invisibility_of_element_located((By.CSS_SELECTOR, ".loader, .spinner, .loading"))
+            )
+
+    def search_audio(self):
+        """Поиск на текущей странице фильтра аудио """
+        with allure.step(f"Поиск на странице фльтра по аудокнигам "):
+            search_audio = self.wait.until(
+                EC.element_to_be_clickable(self.ELEMENT_AUDIO_BOOK)
+            )
+            # Скроллим к элементу
+            self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", search_audio)
+
+            # Небольшая пауза для стабилизации анимаций
+            time.sleep(0.5)
+
+            # Пробуем обычный клик
+            try:
+                search_audio.click()
+            except ElementClickInterceptedException:
+                # Фоллбэк: клик через JS
+                allure.step("Обычный клик не сработал, используем JavaScript")
+                self.driver.execute_script("arguments[0].click();", search_audio)
 
             wait = WebDriverWait(self.driver, 10)
             # Ожидание исчезновения индикатора загрузки
@@ -66,12 +94,35 @@ class SearchResultsPage(BasePage):
     def load_more_results(self):
         """Загрузка дополнительных результатов через кнопку 'Показать ещё' """
         with allure.step("Загрузка дополнительных результатов"):
-            if self.is_element_present(self.LOAD_MORE_BUTTON, timeout=2):
-                self.click_element(self.LOAD_MORE_BUTTON)
-                self.wait_for_page_load()
-                logger.info("Loaded more results")
-                return True
-            return False
+            search_more = self.wait.until(
+                EC.element_to_be_clickable(self.LOAD_MORE_BUTTON)
+            )
+            # Скроллим к элементу
+            self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", search_more)
+
+            # Небольшая пауза для стабилизации анимаций
+            time.sleep(0.5)
+
+            # Пробуем обычный клик
+            try:
+                search_more.click()
+            except ElementClickInterceptedException:
+                # Фоллбэк: клик через JS
+                allure.step("Обычный клик не сработал, используем JavaScript")
+                self.driver.execute_script("arguments[0].click();", search_more)
+
+            wait = WebDriverWait(self.driver, 10)
+            # Ожидание исчезновения индикатора загрузки
+            wait.until(
+                EC.invisibility_of_element_located((By.CSS_SELECTOR, ".loader, .spinner, .loading"))
+            )
+
+            # if self.is_element_present(self.LOAD_MORE_BUTTON, timeout=2):
+            #     self.click_element(self.LOAD_MORE_BUTTON)
+            #     self.wait_for_page_load()
+            #     logger.info("Loaded more results")
+            #     return True
+            # return False
 
     def are_books_with_keyword_present(self, keyword: str):
         """Проверка наличия книг с ключевым словом в названии"""
