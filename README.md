@@ -37,7 +37,10 @@ Litres-testing/
 │
 ├── tests/
 │   ├── __init__.py
-│   └── test_litres_search_Lukyanenko.py    
+│   ├── test_litres_search_Lukyanenko.py 
+│   ├── test_litres_search_more.py    
+│   ├── test_litres_search_audio.py    
+│   └── test_litres_search_negative.py       
 │    
 │
 └── README.md (Инструкция по запуску автотестов)
