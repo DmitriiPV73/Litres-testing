@@ -1,6 +1,5 @@
 import pytest
 from selenium import webdriver
-from pages.base_page import BasePage
 
 @pytest.fixture(scope="function")
 def browser():

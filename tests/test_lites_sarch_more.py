@@ -39,11 +39,5 @@ class TestSearch:
             screenshot = browser.get_screenshot_as_png()
             allure.attach(screenshot, name="page_more")
 
-        # with allure.step("Проверка отображения сообщения об отсутствии результатов"):
-        #     assert not  search_page.is_no_results_displayed(), "'Ничего не найдено' не найдено"
 
-        # with allure.step("Получение списка названий книг на странице"):
-        #     search_page.get_book_titles()
-        #     titles = search_page.get_book_titles()
-        #     print(titles)
 

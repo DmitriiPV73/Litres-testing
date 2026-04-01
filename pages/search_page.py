@@ -1,8 +1,7 @@
 import time
-from selenium.common.exceptions import ElementClickInterceptedException
-
 import allure
 import logging
+from selenium.common.exceptions import ElementClickInterceptedException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.keys import Keys
@@ -21,7 +20,7 @@ class SearchResultsPage(BasePage):
     # Заголовок книги (первой)
     BOOK_TITLES = (By.XPATH, '//*[@id="main"]/div[2]/div/div[2]/div[3]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/a[1]')
     # Заголовки книг
-    BOOK_TITLES_ALL = (By.XPATH, '//a[@data-testid="art__title"]')
+    BOOK_TITLES_ALL = (By.XPATH, '//div[@class="f6a146b9"]')
     # Кнопка выбора "Бизнес-книги"
     BUSINESS_BOOKS_BUTTON = (By.XPATH, '//*[@id="main"]/div[2]/div/div[1]/div[1]/div[2]/div/div[4]/a')
     # Поле чек-бокса "Текст"
@@ -31,7 +30,7 @@ class SearchResultsPage(BasePage):
     # Ничего не найдено
     NO_RESULTS_MESSAGE = (By.XPATH, '//*[@id="main"]/div/div[2]/div/h1')
     # Кнопка "Показать еще"
-    LOAD_MORE_BUTTON = (By.XPATH, '//*[@id="main"]/div[2]')
+    LOAD_MORE_BUTTON = (By.CSS_SELECTOR, '#main > div._461bd08a > div > div:nth-child(2) > div.d6f32cb1 > div._1de383e2 > button')
     # Элемент карточки книги "Автор" для проверки
     ELEMENT_BOOK_AUTHOR = (By.XPATH, '//a[contains(text(), "Лукьяненко")]')
     # Элемент вижка "Высокя оцена"
@@ -82,7 +81,7 @@ class SearchResultsPage(BasePage):
     def get_book_titles(self):
         """Получение списка названий книг на странице"""
         with allure.step("Получение списка названий книг"):
-            titles_elements = self.driver.find_elements(*self.BOOK_TITLES)
+            titles_elements = self.driver.find_elements(*self.BOOK_TITLES_ALL)
             titles = [elem.text.strip() for elem in titles_elements if elem.text.strip()]
             logger.info(f"Found {len(titles)} book titles")
             return titles
@@ -116,13 +115,6 @@ class SearchResultsPage(BasePage):
             wait.until(
                 EC.invisibility_of_element_located((By.CSS_SELECTOR, ".loader, .spinner, .loading"))
             )
-
-            # if self.is_element_present(self.LOAD_MORE_BUTTON, timeout=2):
-            #     self.click_element(self.LOAD_MORE_BUTTON)
-            #     self.wait_for_page_load()
-            #     logger.info("Loaded more results")
-            #     return True
-            # return False
 
     def are_books_with_keyword_present(self, keyword: str):
         """Проверка наличия книг с ключевым словом в названии"""

@@ -23,7 +23,7 @@ class TestSearch:
     @allure.severity(allure.severity_level.CRITICAL)
     def test_search_audio_in_popular(self, browser):
         """
-        Интеграционный тест: переход в Популярное → выбор по высокой оценке → проверка результатов
+        Интеграционный тест: переход в Популярное → выбор по аудиокниге → проверка результатов
         """
         main_page = MainPage(browser)
         search_page = SearchResultsPage(browser)
@@ -38,7 +38,16 @@ class TestSearch:
             screenshot = browser.get_screenshot_as_png()
             allure.attach(screenshot, name="page_cost")
 
-        with allure.step("Получение списка аудиокниг на странице"):
-            search_page.get_book_titles()
+        with allure.step("Получение списка названий книг на странице"):
             titles = search_page.get_book_titles()
-            print(titles)
+            # Логируем список книг
+            logger.info(f"Найденные книги: {titles}")
+
+            # Добавляем список книг в Allure отчет
+            allure.attach(
+                "\n".join([f"{i}. {title}" for i, title in enumerate(titles, 1)]),
+                name="Список найденных книг",
+                attachment_type=allure.attachment_type.TEXT
+            )
+            # Проверяем, что список не пустой
+            assert len(titles) > 0, "Список книг пуст"

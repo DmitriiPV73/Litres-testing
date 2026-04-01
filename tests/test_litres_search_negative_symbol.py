@@ -1,4 +1,7 @@
-"""Негативный тест предназначен для получения оповещения 'Ничего не найдено' в разделе Популярное на Litres"""
+"""
+Негативный тест предназначен для получения оповещения 'Ничего не найдено'
+в разделе Популярное на Litres при обработке спецсимволов в запросе
+"""
 import pytest
 import allure
 import logging
@@ -20,9 +23,9 @@ class TestSearch:
         4. Проверить, что результат содержат уведомление 'Ничего не найдено'
     """)
     @allure.severity(allure.severity_level.CRITICAL)
-    def test_search_negative_in_popular(self, browser):
+    def test_search_negative_symbol(self, browser):
         """
-        Интеграционный тест: переход в Популярное → поиск автора → проверка результатов
+        Интеграционный тест: переход в Популярное → ввод символов → проверка результатов
         """
         main_page = MainPage(browser)
         search_page = SearchResultsPage(browser)

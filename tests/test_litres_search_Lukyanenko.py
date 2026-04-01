@@ -44,9 +44,18 @@ class TestSearch:
             assert not  search_page.is_no_results_displayed(), "'Ничего не найдено' не найдено"
 
         with allure.step("Получение списка названий книг на странице"):
-            search_page.get_book_titles()
             titles = search_page.get_book_titles()
-            print(titles)
+            # Логируем список книг
+            logger.info(f"Найденные книги: {titles}")
+
+            # Добавляем список книг в Allure отчет
+            allure.attach(
+                "\n".join([f"{i}. {title}" for i, title in enumerate(titles, 1)]),
+                name="Список найденных книг",
+                attachment_type=allure.attachment_type.TEXT
+            )
+            # Проверяем, что список не пустой
+            assert len(titles) > 0, "Список книг пуст"
 
 
 
