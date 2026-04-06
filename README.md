@@ -13,9 +13,15 @@ ____________________
 ````
 Litres-testing/
 │
-├── test-plan/
-│   ├── TestPlan_Litres.pdf
+├── venv/
+│    
+├── allure_result/
+|
+├── MindMap/
 │   └── MindMap_Litres.jpg
+│
+├── test-plan/
+│   └── TestPlan_Litres.pdf
 │
 ├── checklist/
 │   └── ChecList_Litres.pdf
@@ -23,17 +29,13 @@ Litres-testing/
 ├── test-cases/
 │   └── TestCases_Litres.pdf 
 │
-├── bug-reports/
+├── skrin/
 │   
-│
-├── final-report/
-│   └── FinalReport_Litres.pdf
-│
 ├── pages/
 │   ├── __init__.py
 │   ├── base_page.py
 │   ├── main_page.py
-│   └── serch_page.py
+│   └── search_page.py
 │
 ├── tests/
 │   ├── __init__.py
@@ -42,9 +44,12 @@ Litres-testing/
 │   ├── test_litres_search_audio.py    
 │   ├── test_litres_search_negative_symbol.py 
 │   └── test_litres_search_negative_asdfghjkl123456.py        
-│    
 │
-└── README.md (Инструкция по запуску автотестов)
+├── README.md (Инструкция по запуску автотестов)
+│
+├── pytest.ini
+│
+└── conftest.py
 ````
 
 # Автотесты
@@ -122,3 +127,6 @@ pip install -r autotests/requirements.txt
 ![2026-03-30_21-05-03.png](skrin%2F2026-03-30_21-05-03.png)
 ![2026-04-01_21-02-43.png](skrin/2026-04-01_21-02-43.png)
 ![2026-04-01_21-18-54.png](skrin/2026-04-01_21-18-54.png)
+![2026-04-05_18-21-30.png](skrin/2026-04-05_18-21-30.png)
+![2026-04-05_18-41-46.png](skrin/2026-04-05_18-41-46.png)
+![2026-04-05_18-47-44.png](skrin/2026-04-05_18-47-44.png)

@@ -42,5 +42,5 @@ class TestSearch:
             allure.attach(screenshot, name="page_@#$^&")
 
         with allure.step("Проверка отображения сообщения об отсутствии результатов"):
-            assert search_page.is_no_results_displayed(), "'Ничего не найдено' не найдено"
+            assert search_page.is_no_results_displayed(), "'Ничего не найдено' найдено"
 

@@ -1,10 +1,6 @@
 import allure
-import time
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import (
-    ElementClickInterceptedException,
-    ElementNotInteractableException,
-    NoSuchElementException,
     TimeoutException
 )
 from pages.base_page import BasePage
