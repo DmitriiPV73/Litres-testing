@@ -10,6 +10,7 @@ from pages.search_page import SearchResultsPage
 logger = logging.getLogger(__name__)
 
 @allure.feature("Поиск книг на Litres.ru")
+@pytest.mark.parametrize("browser", ["Chrome", "Firefox"], indirect=True)
 class TestSearch:
     """Тесты функционала поиска на сайте Litres.ru"""
 

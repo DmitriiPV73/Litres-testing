@@ -28,7 +28,7 @@ class SearchResultsPage(BasePage):
     # Элемент карточки книги "Текст" для проверки
     ELEMENT_BOOK_TEXT = (By.XPATH, '//div[text()="Текст"]')
     # Ничего не найдено
-    NO_RESULTS_MESSAGE = (By.XPATH, '//*[@id="main"]/div/div[2]/div/h1')
+    NO_RESULTS_MESSAGE = (By.CSS_SELECTOR, '#main > div > div._17789489 > div > h1')
     # Кнопка "Показать еще"
     LOAD_MORE_BUTTON = (By.CSS_SELECTOR, '#main > div._461bd08a > div > div:nth-child(2) > div.d6f32cb1 > div._1de383e2 > button')
     # Элемент карточки книги "Автор" для проверки
@@ -89,6 +89,10 @@ class SearchResultsPage(BasePage):
     def is_no_results_displayed(self):
         """Проверка отображения сообщения об отсутствии результатов"""
         return self.is_element_displayed(self.NO_RESULTS_MESSAGE, timeout=2)
+
+    def is_no_result_author(self):
+        """Проверка отображения искомого автора в карточке кники"""
+        return self.is_element_displayed(self.ELEMENT_BOOK_AUTHOR, timeout=2)
 
     def load_more_results(self):
         """Загрузка дополнительных результатов через кнопку 'Показать ещё' """

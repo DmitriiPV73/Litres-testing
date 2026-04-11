@@ -22,6 +22,7 @@ class TestSearch:
         4. Проверить, что результаты содержат книги автора
     """)
     @allure.severity(allure.severity_level.CRITICAL)
+    @pytest.mark.parametrize("browser", ["Chrome", "Firefox"], indirect=True)
     def test_search_lukyanenko_in_popular(self, browser):
         """
         Интеграционный тест: переход в Популярное → поиск автора → проверка результатов
@@ -40,6 +41,10 @@ class TestSearch:
             screenshot = browser.get_screenshot_as_png()
             allure.attach(screenshot, name="page_Lukyanenko")
 
+
+        with allure.step(f"Проверка по запросу: '{search_query}'"):
+            assert search_page.is_no_result_author, "'Автор в карточке не найден'"
+
         with allure.step("Проверка отображения сообщения об отсутствии результатов"):
             assert not  search_page.is_no_results_displayed(), "'Ничего не найдено' не найдено"
 
@@ -56,9 +61,3 @@ class TestSearch:
             )
             # Проверяем, что список не пустой
             assert len(titles) > 0, "Список книг пуст"
-
-
-
-
-
-

@@ -1,8 +1,6 @@
-import pytest
 import allure
+import pytest
 import logging
-from selenium.webdriver.common.by import By
-from selenium import webdriver
 from pages.main_page import MainPage
 from pages.search_page import SearchResultsPage
 
@@ -21,6 +19,7 @@ class TestSearch:
         4. Проверить, что результаты содержат аудиокниги
     """)
     @allure.severity(allure.severity_level.CRITICAL)
+    @pytest.mark.parametrize("browser", ["Chrome", "Firefox"], indirect=True)
     def test_search_audio_in_popular(self, browser):
         """
         Интеграционный тест: переход в Популярное → выбор по аудиокниге → проверка результатов

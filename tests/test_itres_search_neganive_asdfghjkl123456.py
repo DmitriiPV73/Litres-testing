@@ -11,6 +11,7 @@ from pages.search_page import SearchResultsPage
 logger = logging.getLogger(__name__)
 
 @allure.feature("Поиск книг на Litres.ru")
+@pytest.mark.parametrize("browser", ["Chrome", "Firefox"], indirect=True)
 class TestSearch:
     """Тесты функционала поиска на сайте Litres.ru"""
 
@@ -42,4 +43,4 @@ class TestSearch:
             allure.attach(screenshot, name="page_asdfghjkl123456")
 
         with allure.step("Проверка отображения сообщения об отсутствии результатов"):
-            assert search_page.is_no_results_displayed(), "'Ничего не найдено' не найдено"
+            assert search_page.is_no_results_displayed(), "'Ничего не найдено'"
