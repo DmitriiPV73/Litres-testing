@@ -7,6 +7,7 @@ from pages.search_page import SearchResultsPage
 logger = logging.getLogger(__name__)
 
 @allure.feature("Поиск книг на Litres.ru")
+@pytest.mark.parametrize("browser", ["Chrome", "Firefox"], indirect=True)
 class TestSearch:
     """Тесты функционала поиска на сайте Litres.ru"""
 
@@ -19,7 +20,6 @@ class TestSearch:
         4. Проверить, что результаты содержат аудиокниги
     """)
     @allure.severity(allure.severity_level.CRITICAL)
-    @pytest.mark.parametrize("browser", ["Chrome", "Firefox"], indirect=True)
     def test_search_audio_in_popular(self, browser):
         """
         Интеграционный тест: переход в Популярное → выбор по аудиокниге → проверка результатов
